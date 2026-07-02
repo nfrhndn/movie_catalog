@@ -70,6 +70,16 @@ class MovieCard extends StatelessWidget {
                         fontSize: 14,
                       ),
                     ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '${movie.director} - ${movie.runningTime} min',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Colors.grey.shade700,
+                        fontSize: 13,
+                      ),
+                    ),
                     const SizedBox(height: 8),
                     Row(
                       children: [

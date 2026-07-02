@@ -1,7 +1,7 @@
 class FavoriteState {
-  final Set<String> favoriteMovieTitles;
-  
-  FavoriteState(this.favoriteMovieTitles);
+  FavoriteState(this.favoriteMovieIds);
 
-  bool isFavorite(String title) => favoriteMovieTitles.contains(title);
+  final Set<String> favoriteMovieIds;
+
+  bool isFavorite(String movieId) => favoriteMovieIds.contains(movieId);
 }

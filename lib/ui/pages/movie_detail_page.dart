@@ -7,10 +7,7 @@ import '../../core/theme.dart';
 import '../../models/movie.dart';
 
 class MovieDetailPage extends StatelessWidget {
-  const MovieDetailPage({
-    super.key,
-    required this.movie,
-  });
+  const MovieDetailPage({super.key, required this.movie});
 
   final Movie movie;
 
@@ -26,7 +23,7 @@ class MovieDetailPage extends StatelessWidget {
         actions: [
           BlocBuilder<FavoriteBloc, FavoriteState>(
             builder: (context, state) {
-              final isFavorite = state.isFavorite(movie.title);
+              final isFavorite = state.isFavorite(movie.id);
               return IconButton(
                 tooltip: isFavorite ? 'Hapus dari favorite' : 'Tambah favorite',
                 onPressed: () {
@@ -104,10 +101,27 @@ class MovieDetailPage extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: 14),
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 10,
+            runSpacing: 8,
+            children: [
+              _InfoChip(icon: Icons.person_rounded, label: movie.director),
+              _InfoChip(
+                icon: Icons.schedule_rounded,
+                label: '${movie.runningTime} min',
+              ),
+              _InfoChip(
+                icon: Icons.movie_creation_rounded,
+                label: movie.producer,
+              ),
+            ],
+          ),
           const SizedBox(height: 24),
           BlocBuilder<FavoriteBloc, FavoriteState>(
             builder: (context, state) {
-              final isFavorite = state.isFavorite(movie.title);
+              final isFavorite = state.isFavorite(movie.id);
               return FilledButton.icon(
                 style: FilledButton.styleFrom(
                   backgroundColor: movieAccentColor,
@@ -143,6 +157,26 @@ class MovieDetailPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _InfoChip extends StatelessWidget {
+  const _InfoChip({required this.icon, required this.label});
+
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    if (label.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Chip(
+      avatar: Icon(icon, size: 18),
+      label: Text(label),
+      visualDensity: VisualDensity.compact,
     );
   }
 }
